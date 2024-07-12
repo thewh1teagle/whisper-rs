@@ -214,10 +214,8 @@ fn main() {
         println!("cargo:rustc-link-search={}", out.join("build/src").display());
     }
     println!("cargo:rustc-link-search=native={}", destination.display());
-    println!("cargo:rustc-link-lib=static=whisper");
     println!("cargo:rustc-link-lib=static=ggml");
-
-
+    println!("cargo:rustc-link-lib=static=whisper");
 
     // for whatever reason this file is generated during build and triggers cargo complaining
     _ = std::fs::remove_file("bindings/javascript/package.json");
