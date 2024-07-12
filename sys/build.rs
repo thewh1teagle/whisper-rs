@@ -173,12 +173,12 @@ fn main() {
     }
 
     if cfg!(feature = "metal") {
-        config.define("WHISPER_METAL", "ON");
-        config.define("WHISPER_METAL_NDEBUG", "ON");
-        config.define("WHISPER_METAL_EMBED_LIBRARY", "ON");
+        config.define("GGML_METAL", "ON");
+        config.define("GGML_METAL_NDEBUG", "ON");
+        config.define("GGML_METAL_EMBED_LIBRARY", "ON");
     } else {
         // Metal is enabled by default, so we need to explicitly disable it
-        config.define("WHISPER_METAL", "OFF");
+        config.define("GGML_METAL", "OFF");
     }
 
     if cfg!(debug_assertions) || cfg!(feature = "force-debug") {
