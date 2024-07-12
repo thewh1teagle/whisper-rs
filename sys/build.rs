@@ -107,7 +107,8 @@ fn main() {
         let bindings = bindings.header("whisper.cpp/ggml-metal.h");
 
         let bindings = bindings
-            .clang_arg("-I./whisper.cpp")
+            .clang_arg("-I./whisper.cpp/include")
+            .clang_arg("-I./whisper.cpp/ggml/include")
             .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
             .generate();
 
@@ -198,7 +199,7 @@ fn main() {
     if target.contains("window") && !target.contains("gnu") {
         println!(
             "cargo:rustc-link-search={}",
-            out.join("build").join("Release").display()
+            out.join("build").join("src").join("Release").display()
         );
     } else {
         println!("cargo:rustc-link-search={}", out.join("build").display());

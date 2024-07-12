@@ -86,7 +86,7 @@ impl WhisperState {
             return Err(WhisperError::InvalidThreadCount);
         }
         let ret = unsafe {
-            whisper_rs_sys::whisper_pcm_to_mel_phase_vocoder_with_state(
+            whisper_rs_sys::whisper_pcm_to_mel_with_state(
                 self.ctx.ctx,
                 self.ptr,
                 pcm.as_ptr(),
