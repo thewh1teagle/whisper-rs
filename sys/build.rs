@@ -197,7 +197,7 @@ fn main() {
     let destination = config.build();
 
     if cfg!(target_os = "linux") {
-        println!("cargo:rustc-link-lib=static=openmp");
+        println!("cargo:rustc-link-lib=openmp");
     }
 
     if target.contains("window") && !target.contains("gnu") {
