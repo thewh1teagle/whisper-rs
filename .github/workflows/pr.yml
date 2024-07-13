@@ -9,9 +9,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        rust-version: [stable]
-    runs-on: ${{ matrix.os }}
+        include:
+            - platform: "macos-latest" # for Arm based macs (M1 and above).
+              args: "--target aarch64-apple-darwin"
+            - platform: "macos-latest" # for Intel based macs.
+              args: "--target x86_64-apple-darwin"
+            - platform: "ubuntu-22.04" # Ubuntu x86_64
+              args: ""
+            - platform: "windows-latest" # Windows x86_64
+              args: "--target x86_64-pc-windows-msvc"
+
+    runs-on: ${{ matrix.platform }}
     steps:
       - name: Check out code into the proper directory
         uses: actions/checkout@v3
@@ -22,9 +30,10 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Install rust
-        uses: dtolnay/rust-toolchain@master
+        uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: ${{ matrix.rust-version }}
+            # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+            targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       - name: Check build
-        run: cargo build --verbose
+        run: cargo build --verbose ${{ matrix.args }}
