@@ -104,7 +104,7 @@ fn main() {
         let bindings = bindgen::Builder::default().header("wrapper.h");
 
         #[cfg(feature = "metal")]
-        let bindings = bindings.header("whisper.cpp/ggml/ggml-metal.h");
+        let bindings = bindings.header("whisper.cpp/spm-headers/ggml-metal.h");
 
         let bindings = bindings
             .clang_arg("-I./whisper.cpp/include")
