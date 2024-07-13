@@ -146,6 +146,10 @@ fn main() {
         .very_verbose(true)
         .pic(true);
 
+    if cfg!(target_os = "macos") && cfg!(target_arch = "x86_64") {
+        config.define("CMAKE_OSX_ARCHITECTURES", "x86-64");
+    }
+
     if cfg!(feature = "coreml") {
         config.define("WHISPER_COREML", "ON");
         config.define("WHISPER_COREML_ALLOW_FALLBACK", "1");
