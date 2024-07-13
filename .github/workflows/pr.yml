@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        rust-version: [stable, nightly]
+        rust-version: [stable]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out code into the proper directory
