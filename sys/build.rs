@@ -109,7 +109,7 @@ fn main() {
         let bindings = bindings
             .clang_arg("-I./whisper.cpp/include")
             .clang_arg("-I./whisper.cpp/ggml/include")
-            .clang_arg("-fopenmp")
+            .clang_arg("-fopenmp=libiomp5")
             .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
             .generate();
 
