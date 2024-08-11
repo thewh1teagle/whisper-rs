@@ -144,6 +144,13 @@ fn main() {
         .very_verbose(true)
         .pic(true);
 
+    if let Ok(value) = env::var("WHISPER_USE_STATIC_MSVC") {
+        config.define(
+            "WHISPER_USE_STATIC_MSVC",
+            if value == "1" { "ON" } else { "OFF" },
+        );
+    }
+
     if cfg!(feature = "coreml") {
         config.define("WHISPER_COREML", "ON");
         config.define("WHISPER_COREML_ALLOW_FALLBACK", "1");
