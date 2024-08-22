@@ -222,6 +222,9 @@ fn main() {
 
     add_link_search_path(&out.join("lib")).unwrap();
 
+    // Include build/src for libwhisper.coreml
+    // Todo: inform whisper.cpp to fix it so it will be available normally
+    println!("cargo:rustc-link-search=native={}", destination.join("build/src").display());
     println!("cargo:rustc-link-search=native={}", destination.display());
     println!("cargo:rustc-link-lib=static=whisper");
     println!("cargo:rustc-link-lib=static=ggml");
